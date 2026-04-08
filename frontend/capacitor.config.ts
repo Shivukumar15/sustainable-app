@@ -1,21 +1,22 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.sustainableapp.ecolife',
-  appName: 'EcoLife',
-  webDir: 'build',
+  appId: 'com.ecotrack.app',
+  appName: 'EcoTrack',
+  webDir: 'dist',
   server: {
-    // Use HTTPS scheme for the WebView (Capacitor default); HTTP API calls use network security config.
     androidScheme: 'https',
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 0,
-      backgroundColor: '#f0f2f5',
+      launchAutoHide: true,
+      backgroundColor: '#059669',
+      showSpinner: false,
+      androidScaleType: 'CENTER_CROP',
     },
     StatusBar: {
-      style: 'DARK',
-      backgroundColor: '#ffffff',
+      style: 'LIGHT',
+      backgroundColor: '#059669',
     },
   },
 };
