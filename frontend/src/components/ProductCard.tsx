@@ -1,3 +1,4 @@
+import { Wind, Droplets, Recycle, Leaf } from 'lucide-react';
 import type { Product } from '../types';
 
 interface ProductCardProps {
@@ -6,51 +7,56 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'bg-emerald-100 text-emerald-700';
-    if (score >= 60) return 'bg-yellow-100 text-yellow-700';
-    return 'bg-red-100 text-red-700';
+    if (score >= 80) return 'bg-emerald-100 text-emerald-800 ring-emerald-200';
+    if (score >= 60) return 'bg-amber-100 text-amber-800 ring-amber-200';
+    return 'bg-red-100 text-red-800 ring-red-200';
+  };
+
+  const getScoreIcon = (score: number) => {
+    if (score >= 80) return 'from-emerald-400 to-green-500';
+    if (score >= 60) return 'from-amber-400 to-yellow-500';
+    return 'from-red-400 to-rose-500';
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden border border-gray-100">
-      <div className="h-48 bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center p-4">
-        {product.imageUrl ? (
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="h-full w-full object-contain"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none';
-            }}
-          />
-        ) : (
-          <span className="text-5xl">&#x1F33F;</span>
-        )}
+    <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 hover:border-emerald-200 transition-all duration-300 overflow-hidden hover:-translate-y-1">
+      <div className="h-44 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <Leaf className="w-16 h-16 text-emerald-300 group-hover:text-emerald-400 transition-colors duration-300" />
+        <div className="absolute top-3 right-3">
+          <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${getScoreIcon(product.ecoScore)} flex items-center justify-center shadow-lg`}>
+            <span className="text-white text-xs font-black">{product.ecoScore}</span>
+          </div>
+        </div>
       </div>
       <div className="p-5">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="text-lg font-semibold text-gray-800 leading-tight">
-            {product.name}
-          </h3>
-          <span
-            className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${getScoreColor(product.ecoScore)}`}
-          >
-            {product.ecoScore}
-          </span>
-        </div>
-        <p className="text-gray-500 text-sm mb-3 line-clamp-2">
+        <h3 className="text-base font-bold text-gray-900 leading-snug mb-1.5 group-hover:text-emerald-700 transition-colors line-clamp-1">
+          {product.name}
+        </h3>
+        <p className="text-gray-500 text-sm mb-3 line-clamp-2 leading-relaxed">
           {product.description}
         </p>
-        <div className="flex items-center justify-between text-sm">
-          <span className="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-md font-medium">
+        <div className="flex items-center justify-between mb-3">
+          <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-lg text-xs font-semibold">
             {product.category}
           </span>
-          <span className="text-gray-800 font-bold">${product.price}</span>
+          <span className="text-lg font-black text-gray-900">${product.price}</span>
         </div>
-        <div className="mt-3 flex gap-3 text-xs text-gray-400">
-          <span title="Carbon Footprint">&#x1F4A8; {product.carbonFootprint} kg CO2</span>
-          <span title="Water Usage">&#x1F4A7; {product.waterUsage} L</span>
-          {product.recyclable && <span title="Recyclable">&#x267B;&#xFE0F; Recyclable</span>}
+        <div className="flex items-center gap-3 pt-3 border-t border-gray-100 text-xs text-gray-500">
+          <span className="inline-flex items-center gap-1" title="Carbon Footprint">
+            <Wind className="w-3.5 h-3.5 text-gray-400" />
+            {product.carbonFootprint} kg
+          </span>
+          <span className="inline-flex items-center gap-1" title="Water Usage">
+            <Droplets className="w-3.5 h-3.5 text-blue-400" />
+            {product.waterUsage} L
+          </span>
+          {product.recyclable && (
+            <span className="inline-flex items-center gap-1 text-emerald-600" title="Recyclable">
+              <Recycle className="w-3.5 h-3.5" />
+              Recyclable
+            </span>
+          )}
         </div>
       </div>
     </div>
