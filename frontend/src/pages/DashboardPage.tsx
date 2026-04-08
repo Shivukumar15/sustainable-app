@@ -15,18 +15,8 @@ export default function DashboardPage() {
   const [error, setError] = useState('');
   const [user, setUser] = useState<User | null>(null);
 
-  // Add product form
-  const [addForm, setAddForm] = useState({
-    name: '',
-    description: '',
-    category: '',
-    ecoScore: '',
-    imageUrl: '',
-    price: '',
-    carbonFootprint: '',
-    waterUsage: '',
-    recyclable: true,
-  });
+  // Add purchase form
+  const [selectedProductId, setSelectedProductId] = useState('');
   const [addLoading, setAddLoading] = useState(false);
   const [addError, setAddError] = useState('');
   const [addSuccess, setAddSuccess] = useState('');
@@ -66,7 +56,7 @@ export default function DashboardPage() {
       if (!user) throw new Error('No user found');
       await api.post('/products/purchase', {
         userId: user.id,
-        productId: addForm.name, // This is a simplified flow
+        productId: selectedProductId,
         quantity: 1,
       });
       setAddSuccess('Purchase recorded successfully!');
@@ -185,8 +175,8 @@ export default function DashboardPage() {
                   </label>
                   <select
                     required
-                    value={addForm.name}
-                    onChange={(e) => setAddForm({ ...addForm, name: e.target.value })}
+                    value={selectedProductId}
+                    onChange={(e) => setSelectedProductId(e.target.value)}
                     className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
                   >
                     <option value="">-- Choose a product --</option>
@@ -199,7 +189,7 @@ export default function DashboardPage() {
                 </div>
                 <button
                   type="submit"
-                  disabled={addLoading || !addForm.name}
+                  disabled={addLoading || !selectedProductId}
                   className="w-full bg-emerald-600 text-white py-2.5 rounded-lg font-semibold hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {addLoading ? 'Recording...' : 'Record Purchase'}
