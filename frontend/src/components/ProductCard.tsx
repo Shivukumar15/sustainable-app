@@ -6,12 +6,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'bg-emerald-100 text-emerald-800 ring-emerald-200';
-    if (score >= 60) return 'bg-amber-100 text-amber-800 ring-amber-200';
-    return 'bg-red-100 text-red-800 ring-red-200';
-  };
-
   const getScoreIcon = (score: number) => {
     if (score >= 80) return 'from-emerald-400 to-green-500';
     if (score >= 60) return 'from-amber-400 to-yellow-500';
