@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
-    "start:frontend": "cd frontend && npm start",
+    "start:frontend": "cd frontend && npm run dev",
     "start:backend": "cd backend && npm run dev",
     "build:frontend": "cd frontend && npm run build",
     "build:backend": "cd backend && npm run build",
     "seed": "cd backend && npm run seed",
-    "cap:sync": "cd frontend && npm run cap:sync",
-    "cap:android": "cd frontend && npm run android"
+    "lint:frontend": "cd frontend && npm run lint"
   }
 }
